@@ -42,12 +42,13 @@ def minute_diff(h1:int, m1:int, p1:str, h2:int, m2:int, p2:str) -> int :
 
 def calculate_exp(p:int, c:int) -> int :
     res=0
-    if (c>1200) :
-        res+=1000
-        c-=11
-    
-    return 
-    pass
+    while p>0 :
+        if c-12>=0 :
+            c-=12
+            res+=1000
+        c+=2
+        p-=1
+    return res
 
 def divide_plot(x:int, y:int, z:int, start:str) -> str :
     plots=[x,y,z]
@@ -103,7 +104,11 @@ if __name__ == "__main__":
     print(minute_diff(8, 23, 'AM', 8, 24, 'AM'))
     print(minute_diff(8, 23, 'AM', 1, 24, 'PM'))
     print(minute_diff(1, 24, 'PM', 8, 23, 'AM'))
-
+    
+    print(calculate_exp(1, 12))
+    print(calculate_exp(2, 12))
+    calculate_exp(2, 22)
+    
     print(divide_plot(2, 5, 8, 'A'))
     print(divide_plot(2, 5, 8, 'C'))
     print(divide_plot(60, 60, 60, 'B'))
