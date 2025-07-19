@@ -40,15 +40,33 @@ def minute_diff(h1:int, m1:int, p1:str, h2:int, m2:int, p2:str) -> int :
     total2 = ((h2+if_PM(p2))*60)+m2
     return abs(total1-total2)
 
-def calculate_exp(p:int, c:int) -> int :
+def calculate_exp_(p:int, c:int) -> int :
     res=0
     while p>0 :
         if c-12>=0 :
             c-=12
             res+=1000
-        c+=2
+            c+=2
+        c+=1
         p-=1
     return res
+
+def calculate_exp(p: int, c: int) -> int:
+    if p == 0:
+        return 0
+    if p == 1:
+        if c >= 12:
+            return 1000
+        else:
+            return 0
+    if c >= p * 10 + 2:
+        return p * 1000
+    else:
+        P = (p - 1 + c - 1) // 11
+        if p > P:
+            return P * 1000
+        else:
+            return p * 1000
 
 def divide_plot(x:int, y:int, z:int, start:str) -> str :
     plots=[x,y,z]
@@ -96,19 +114,25 @@ def divide_plot(x:int, y:int, z:int, start:str) -> str :
     return ", ".join(ops)
 
 if __name__ == "__main__":
-    print(circle_intersect(2, 3, 5, 0, 7, 1))
-    print(circle_intersect(0, 0, 2.5, 3, 4, 2.5))
+    # print(circle_intersect(2, 3, 5, 0, 7, 1))
+    # print(circle_intersect(0, 0, 2.5, 3, 4, 2.5))
     
-    print(my_min_mid_max(1, 2, 3))
+    # print(my_min_mid_max(1, 2, 3))
 
-    print(minute_diff(8, 23, 'AM', 8, 24, 'AM'))
-    print(minute_diff(8, 23, 'AM', 1, 24, 'PM'))
-    print(minute_diff(1, 24, 'PM', 8, 23, 'AM'))
+    # print(minute_diff(8, 23, 'AM', 8, 24, 'AM'))
+    # print(minute_diff(8, 23, 'AM', 1, 24, 'PM'))
+    # print(minute_diff(1, 24, 'PM', 8, 23, 'AM'))
     
     print(calculate_exp(1, 12))
     print(calculate_exp(2, 12))
-    calculate_exp(2, 22)
-    
-    print(divide_plot(2, 5, 8, 'A'))
-    print(divide_plot(2, 5, 8, 'C'))
-    print(divide_plot(60, 60, 60, 'B'))
+    print(calculate_exp(2, 22))
+    print(calculate_exp(20,1))
+    print(calculate_exp(20,11))
+    print(calculate_exp(11,12))
+    # print(calculate_exp(2,12))
+    # print(calculate_exp(1,12))
+    # print(calculate_exp(2,22))
+
+    # print(divide_plot(2, 5, 8, 'A'))
+    # print(divide_plot(2, 5, 8, 'C'))
+    # print(divide_plot(60, 60, 60, 'B'))
